@@ -148,8 +148,7 @@ footer { border-top: 1px solid var(--line-w); padding: 44px 64px; display: flex;
 .footer-logo { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: .4em; color: var(--mist); text-decoration: none; }
 .footer-logo span { color: var(--red); }
 .footer-note { font-size: 11px; color: var(--ghost); }
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s, transform .8s; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal { opacity: 1; transform: none; }
 @media (max-width: 900px) {
   header { padding: 22px 28px; }
   .intro-grid, .trad-grid, .bundle { grid-template-columns: 1fr; }
@@ -428,10 +427,7 @@ footer { border-top: 1px solid var(--line-w); padding: 44px 64px; display: flex;
     el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(200,0,10,.8)';});
     el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';ring.style.borderColor='rgba(200,0,10,.5)';});
   });
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-  },{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // reveal animations disabled for performance
   document.querySelectorAll('.faq-q').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const item=btn.closest('.faq-item');
@@ -467,6 +463,15 @@ footer { border-top: 1px solid var(--line-w); padding: 44px 64px; display: flex;
 
 
 
+
+
+  // Fallback: ensure all content visible even if animations fail
+  setTimeout(function() {
+    document.querySelectorAll('.hero-eyebrow,.hero-title,.hero-sub,.hero-cta,.scroll-hint').forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  }, 1200);
 
 </script>
 E html>
@@ -619,8 +624,7 @@ footer { border-top: 1px solid var(--line-w); padding: 44px 64px; display: flex;
 .footer-logo { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: .4em; color: var(--mist); text-decoration: none; }
 .footer-logo span { color: var(--red); }
 .footer-note { font-size: 11px; color: var(--ghost); }
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s, transform .8s; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal { opacity: 1; transform: none; }
 @media (max-width: 900px) {
   header { padding: 22px 28px; }
   .intro-grid, .trad-grid, .bundle { grid-template-columns: 1fr; }
@@ -899,10 +903,7 @@ footer { border-top: 1px solid var(--line-w); padding: 44px 64px; display: flex;
     el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(200,0,10,.8)';});
     el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';ring.style.borderColor='rgba(200,0,10,.5)';});
   });
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-  },{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // reveal animations disabled for performance
   document.querySelectorAll('.faq-q').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const item=btn.closest('.faq-item');
