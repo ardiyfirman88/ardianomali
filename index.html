@@ -612,20 +612,14 @@ footer { border-top: 1px solid var(--line-w); padding: 44px 64px; display: flex;
 
 
   // ── PASSWORD GATE ─────────────────────────────────────
-  // SHA-256 hash of password "ARDIANOMALI2025"
-  // Change by computing: sha256("NEWPASSWORD") and replacing the hash below
-  const PW_HASH = '0137329dc39b701d89e64ddb1b1522ec49a86bb9c18223ab361de1cfec55b56f';
+  // To change password: replace PW_ENC with btoa("NEWPASSWORD")
+  const PW_ENC = 'QVJESUFOT01BTEkyMDI1';
 
-  async function sha256(str) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
-  async function checkPassword() {
+  function checkPassword() {
     const val = document.getElementById('pw-input').value.trim().toUpperCase();
     if (!val) return;
-    const hash = await sha256(val);
-    if (hash === PW_HASH) {
+    const correct = atob(PW_ENC);
+    if (val === correct) {
       document.getElementById('gate-unlocking').classList.add('show');
       document.getElementById('pw-error').classList.remove('show');
       setTimeout(() => {
